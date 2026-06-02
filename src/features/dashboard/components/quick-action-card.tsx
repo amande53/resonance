@@ -1,11 +1,13 @@
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import type { QuickAction } from "../data/quick-actions";
 import { cn } from "@/lib/utils";
+import type { QuickAction } from "../data/quick-actions";
 
-type QuickActionCardProps = QuickAction;
+type QuickActionCardProps = Omit<QuickAction, "text"> & {
+  href: string;
+};
 
 export function QuickActionCard({ title, description, gradient, href }: QuickActionCardProps) {
   return (
@@ -20,7 +22,7 @@ export function QuickActionCard({ title, description, gradient, href }: QuickAct
         {/* Decorative elements */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="size-12 rounded-full bg-white/30" />
-          <div className="absolute inset-2 rounded-lg ring-2 ring-inset ring-white/20"/>
+          <div className="absolute inset-2 rounded-lg ring-2 ring-inset ring-white/20" />
         </div>
       </div>
 
@@ -32,7 +34,7 @@ export function QuickActionCard({ title, description, gradient, href }: QuickAct
         </div>
 
         <Button variant="outline" size="xs" asChild className="w-fit">
-          <Link href={href}>
+          <Link href={href} aria-label={`${title} — Try it out`}>
             Try it out
             <ArrowRight className="size-3" />
           </Link>

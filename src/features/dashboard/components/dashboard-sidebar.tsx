@@ -18,35 +18,31 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
-import { 
-  OrganizationSwitcher,
-  UserButton,
-  useClerk
-} from "@clerk/nextjs";
+import { OrganizationSwitcher, UserButton, useClerk } from "@clerk/nextjs";
 import {
   type LucideIcon,
+  AudioLines,
+  Headphones,
   Home,
   LayoutGrid,
-  AudioLines,
-  Volume2,
   Settings,
-  Headphones,
+  Volume2,
 } from "lucide-react";
 import Link from "next/link";
-
 
 interface MenuItem {
   title: string;
   url?: string;
   icon: LucideIcon;
   onClick?: () => void;
-};
+  disabled?: boolean;
+}
 
 interface NavSectionProps {
   label?: string;
   items: MenuItem[];
   pathname: string;
-};
+}
 
 function NavSection({ label, items, pathname }: NavSectionProps) {
   return (
@@ -70,6 +66,7 @@ function NavSection({ label, items, pathname }: NavSectionProps) {
                     : false
                 }
                 onClick={item.onClick}
+                disabled={item.disabled}
                 tooltip={item.title}
                 className="h-9 px-3 py-2 text-[13px] tracking-tight font-medium border border-transparent data-[active=true]:border-border data-[active=true]:shadow-[0px_1px_1px_0px_rgba(44,54,53,0.03),inset_0px_0px_0px_2px_white]"
               >
@@ -114,9 +111,10 @@ export function DashboardSidebar() {
       icon: AudioLines,
     },
     {
-      title: "Voice cloning",
-      icon: Volume2,    
-    }
+      title: "Voice cloning (coming soon)",
+      icon: Volume2,
+      disabled: true,
+    },
   ];
 
   const othersMenuItems: MenuItem[] = [

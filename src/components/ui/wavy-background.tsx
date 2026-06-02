@@ -92,23 +92,25 @@ export const WavyBackground = ({
       if (animationIdRef.current) cancelAnimationFrame(animationIdRef.current);
       window.removeEventListener("resize", handleResize);
     };
-    // Intentionally running once on mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [backgroundFill, blur, colors, speed, waveOpacity, waveWidth, waveYOffset]);
 
-  const [isSafari] = useState<boolean>(
-    () =>
+  const [isSafari, setIsSafari] = useState(false);
+
+  useEffect(() => {
+    if (
       typeof window !== "undefined" &&
       navigator.userAgent.includes("Safari") &&
       !navigator.userAgent.includes("Chrome")
-  );
+    ) {
+      setIsSafari(true);
+    }
+  }, []);
 
   return (
     <div className={cn("h-screen flex flex-col items-center justify-center", containerClassName)}>
       <canvas
         className="absolute inset-0 z-0"
         ref={canvasRef}
-        id="canvas"
         style={{ ...(isSafari ? { filter: `blur(${blur}px)` } : {}) }}
       />
       <div className={cn("relative z-10", className)} {...props}>

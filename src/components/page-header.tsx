@@ -14,13 +14,13 @@ export function PageHeader({ title, className }: { title: string; className?: st
       </div>
       <div className="flex items-center gap-3">
         <Button variant="outline" size="sm" asChild>
-          <Link href="/feedback">
+          <Link href="/feedback" aria-label="Feedback">
             <ThumbsUp />
             <span className="hidden lg:block">Feedback</span>
           </Link>
         </Button>
         <Button variant="outline" size="sm" asChild>
-          <Link href="/support">
+          <Link href="/support" aria-label="Need Help?">
             <Headphones />
             <span className="hidden lg:block">Need Help?</span>
           </Link>
