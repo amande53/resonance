@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/page-header";
 import { HeroPattern } from "../components/hero-pattern";
 import { DashboardHeader } from "../components/dashboard-header";
-import { TextInputPanel } from "@/components/text-input-panel";
+import { TextInputPanel } from "@/features/dashboard/components/text-input-panel";
 import { QuickActionsPanel } from "@/features/dashboard/components/quick-actions-panel";
 
 export function DashboardView() {
