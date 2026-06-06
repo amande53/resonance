@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { Coins } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { TEXT_MAX_LENGTH } from "@/features/text-to-speech/data/constants";
+import { COST_PER_UNIT, TEXT_MAX_LENGTH } from "@/features/text-to-speech/data/constants";
+import { Coins } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export function TextInputPanel() {
   const [text, setText] = useState("");
@@ -42,6 +42,7 @@ export function TextInputPanel() {
             value={text}
             onChange={(e) => setText(e.target.value)}
             maxLength={TEXT_MAX_LENGTH}
+            aria-label="Text input"
           />
 
           <div className="flex items-center justify-between">
@@ -51,12 +52,12 @@ export function TextInputPanel() {
                 {text.length === 0 ? (
                   "Start typing to estimate"
                 ) : (
-                    <>
-                      <span className="tabular-nums">
-                        ${(text.length * 0.0003).toFixed(4)}
-                      </span>{" "}
-                      estimated
-                    </>
+                  <>
+                    <span className="tabular-nums">
+                      ${(text.length * COST_PER_UNIT).toFixed(4)}
+                    </span>{" "}
+                    estimated
+                  </>
                 )}
               </span>
             </Badge>
@@ -65,13 +66,14 @@ export function TextInputPanel() {
             </span>
           </div>
         </div>
-        <div className="flex items-center justify-end p-3">
+        <div className="flex w-full items-center justify-end p-3">
           <Button
             size="sm"
             disabled={!text.trim()}
             onClick={handleGenerate}
+            className="w-full sm:w-auto"
           >
-            Generate
+            Generate Speech
           </Button>
         </div>
       </div>

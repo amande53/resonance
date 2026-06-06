@@ -12,7 +12,7 @@ export function QuickActionsPanel() {
             title={action.title}
             description={action.description}
             gradient={action.gradient}
-            href={`/text-to-speech?text=${encodeURIComponent(action.text)}`}
+            href={action.href}
           />
         ))}
       </div>
