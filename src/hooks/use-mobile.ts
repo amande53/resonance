@@ -1,20 +1,18 @@
 import * as React from "react";
 
 const MOBILE_BREAKPOINT = 1024;
+const SERVER_SNAPSHOT = false;
+
+const subscribe = (callback: () => void) => {
+  window.addEventListener("resize", callback);
+
+  return () => window.removeEventListener("resize", callback);
+};
+
+const getSnapshot = () => window.innerWidth < MOBILE_BREAKPOINT;
+
+const getServerSnapshot = () => SERVER_SNAPSHOT;
 
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = React.useState<boolean>(false);
-
-  React.useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  return isMobile;
+  return React.useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }

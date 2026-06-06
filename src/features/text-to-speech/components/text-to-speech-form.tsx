@@ -1,8 +1,6 @@
 "use client";
 
 import { z } from "zod";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import { formOptions } from "@tanstack/react-form";
 
 import { useAppForm } from "@/hooks/use-app-form";
@@ -38,8 +36,6 @@ export function TextToSpeechForm({
   children: React.ReactNode;
   defaultValues?: TTSFormValues;
 }) {
-  const router = useRouter();
-
   const form = useAppForm({
     ...ttsFormOptions,
     defaultValues: defaultValues ?? defaultTTSValues,
@@ -47,7 +43,7 @@ export function TextToSpeechForm({
       onSubmit: ttsFormSchema,
     },
     onSubmit: async (values) => {
-      console.log(values)
+      console.log(values);
     },
   });
 

@@ -15,8 +15,7 @@ export function TextInputPanel() {
   const form = useTypedAppFormContext(ttsFormOptions);
 
   const text = useStore(form.store, (s) => s.values.text);
-  const isSubmitting = useStore(form.store, (s) => s.isSubmitting)
-  const isValid = useStore(form.store, (s) => s.isValid)
+  const isSubmitting = useStore(form.store, (s) => s.isSubmitting);
 
   return (
     <div className="flex h-full min-h-0 flex-1 flex-col">

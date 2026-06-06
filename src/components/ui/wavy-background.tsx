@@ -1,7 +1,12 @@
 "use client";
 import { cn } from "@/lib/utils";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createNoise3D } from "simplex-noise";
+
+const isSafariBrowser = () =>
+  typeof window !== "undefined" &&
+  navigator.userAgent.includes("Safari") &&
+  !navigator.userAgent.includes("Chrome");
 
 export const WavyBackground = ({
   children,
@@ -30,18 +35,8 @@ export const WavyBackground = ({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationIdRef = useRef<number | null>(null);
 
-  const noise = useRef(createNoise3D()).current;
-
-  const getSpeed = () => {
-    switch (speed) {
-      case "slow":
-        return 0.001;
-      case "fast":
-        return 0.002;
-      default:
-        return 0.001;
-    }
-  };
+  const noise = useMemo(() => createNoise3D(), []);
+  const speedValue = speed === "fast" ? 0.002 : 0.001;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -57,7 +52,7 @@ export const WavyBackground = ({
     const waveColors = colors ?? ["#6d28d9", "#8b5cf6", "#a855f7", "#06b6d4", "#e879f9"];
 
     const drawWave = (n: number) => {
-      nt += getSpeed();
+      nt += speedValue;
       for (let i = 0; i < n; i++) {
         ctx.beginPath();
         ctx.lineWidth = waveWidth || 50;
@@ -92,19 +87,9 @@ export const WavyBackground = ({
       if (animationIdRef.current) cancelAnimationFrame(animationIdRef.current);
       window.removeEventListener("resize", handleResize);
     };
-  }, [backgroundFill, blur, colors, speed, waveOpacity, waveWidth, waveYOffset]);
+  }, [backgroundFill, blur, colors, noise, speedValue, waveOpacity, waveWidth, waveYOffset]);
 
-  const [isSafari, setIsSafari] = useState(false);
-
-  useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      navigator.userAgent.includes("Safari") &&
-      !navigator.userAgent.includes("Chrome")
-    ) {
-      setIsSafari(true);
-    }
-  }, []);
+  const [isSafari] = useState(isSafariBrowser);
 
   return (
     <div className={cn("h-screen flex flex-col items-center justify-center", containerClassName)}>

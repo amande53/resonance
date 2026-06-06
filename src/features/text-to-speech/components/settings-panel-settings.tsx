@@ -5,15 +5,7 @@ import { Slider } from "@/components/ui/slider";
 import { useTypedAppFormContext } from "@/hooks/use-app-form";
 
 import { sliders } from "../data/sliders";
-import {
-  ttsFormOptions,
-  type TTSFormValues,
-} from "@/features/text-to-speech/components/text-to-speech-form";
-
-type SliderFieldName = Extract<
-  keyof TTSFormValues,
-  "temperature" | "topP" | "topK" | "repetitionPenalty"
->;
+import { ttsFormOptions } from "@/features/text-to-speech/components/text-to-speech-form";
 
 export function SettingsPanelSettings() {
   const form = useTypedAppFormContext(ttsFormOptions);
@@ -29,13 +21,15 @@ export function SettingsPanelSettings() {
       <div className="flex-1 p-4">
         <form.Subscribe
           selector={(state) => state.isSubmitting}
-          children={(isSubmitting) => (
+        >
+          {(isSubmitting) => (
             <FieldGroup>
               {sliders.map((slider) => (
                 <form.Field
                   key={slider.id}
                   name={slider.id}
-                  children={(field) => (
+                >
+                  {(field) => (
                     <Field>
                       <FieldLabel>{slider.label}</FieldLabel>
 
@@ -56,11 +50,11 @@ export function SettingsPanelSettings() {
                       />
                     </Field>
                   )}
-                />
+                </form.Field>
               ))}
             </FieldGroup>
           )}
-        />
+        </form.Subscribe>
       </div>
     </>
   );
