@@ -1,4 +1,5 @@
 import { Toaster } from "@/components/ui/sonner";
+import { TRPCReactProvider } from "@/trpc/client";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
@@ -31,7 +32,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={`${inter.variable} ${geistMono.variable} antialiased`}>
-          {children}
+          <TRPCReactProvider>{children}</TRPCReactProvider>
           <Toaster />
         </body>
       </html>
