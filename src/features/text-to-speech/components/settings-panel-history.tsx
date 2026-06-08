@@ -12,7 +12,7 @@ export function SettingsPanelHistory() {
         <div className="relative z-10 rounded-full bg-foreground p-3">
           <AudioWaveform className="size-4 text-background" />
         </div>
-        <div className="absolute right-0 -rotate-[30deg] rounded-full bg-muted p-3">
+        <div className="absolute right-0 rotate-[-30deg] rounded-full bg-muted p-3">
           <Clock className="size-4 text-muted-foreground" />
         </div>
       </div>
