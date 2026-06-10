@@ -16,10 +16,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useTypedAppFormContext } from "@/hooks/use-app-form";
 import { VoiceAvatar } from "@/components/voice-avatar/voice-avatar";
-import { useTTSVoices } from "@/features/text-to-speech/contexts/tts-voices-context";
 import { ttsFormOptions } from "@/features/text-to-speech/components/text-to-speech-form";
+import { useTTSVoices } from "@/features/text-to-speech/contexts/tts-voices-context";
+import { useTypedAppFormContext } from "@/hooks/use-app-form";
 
 export function VoiceSelector() {
   const { customVoices, systemVoices, allVoices: voices } = useTTSVoices();
@@ -30,7 +30,7 @@ export function VoiceSelector() {
 
   const selectedVoice = voices.find((v) => v.id === voiceId);
   const hasMissingSelectedVoice = Boolean(voiceId) && !selectedVoice;
-  const currentVoice = selectedVoice
+  const displayVoice = selectedVoice
     ? selectedVoice
     : hasMissingSelectedVoice
       ? {
@@ -38,7 +38,9 @@ export function VoiceSelector() {
           name: "Unavailable Voice",
           category: null as null,
         }
-      : voices[0];
+      : voices.length > 0
+        ? voices[0]
+        : null;
 
   return (
     <Field>
@@ -50,27 +52,27 @@ export function VoiceSelector() {
       >
         <SelectTrigger className="w-full h-auto gap-1 rounded-lg bg-white px-2 py-1">
           <SelectValue>
-            {currentVoice && (
+            {displayVoice && (
               <>
-                <VoiceAvatar seed={currentVoice.id} name={currentVoice.name} />
+                <VoiceAvatar seed={displayVoice.id} name={displayVoice.name} />
                 <span className="truncate text-sm font-medium tracking-light">
-                  {currentVoice.name}
-                  {currentVoice.category && ` - ${VOICE_CATEGORY_LABELS[currentVoice.category]}`}
+                  {displayVoice.name}
+                  {displayVoice.category && ` - ${VOICE_CATEGORY_LABELS[displayVoice.category]}`}
                 </span>
               </>
             )}
           </SelectValue>
         </SelectTrigger>
         <SelectContent>
-          {hasMissingSelectedVoice && currentVoice && (
+          {hasMissingSelectedVoice && displayVoice && (
             <>
               <SelectGroup>
                 <SelectLabel>Selected Voice</SelectLabel>
-                <SelectItem value={currentVoice.id}>
-                  <VoiceAvatar seed={currentVoice.name} name={currentVoice.name} />
+                <SelectItem value={displayVoice.id}>
+                  <VoiceAvatar seed={displayVoice.id} name={displayVoice.name} />
                   <span className="truncate text-sm font-medium">
-                    {currentVoice.name}
-                    {currentVoice.category && ` - ${VOICE_CATEGORY_LABELS[currentVoice.category]}`}
+                    {displayVoice.name}
+                    {displayVoice.category && ` - ${VOICE_CATEGORY_LABELS[displayVoice.category]}`}
                   </span>
                 </SelectItem>
               </SelectGroup>
@@ -104,7 +106,6 @@ export function VoiceSelector() {
               ))}
             </SelectGroup>
           )}
-          {customVoices.length > 0 && systemVoices.length > 0 && <SelectSeparator />}
         </SelectContent>
       </Select>
     </Field>

@@ -10,7 +10,7 @@ import { useVoiceAvatar } from "@/components/voice-avatar/use-voice-avatar"
 
 interface VoiceAvatarProps {
   seed: string
-  name: string
+  name?: string | null
   className?: string
 }
 
@@ -20,14 +20,22 @@ export function VoiceAvatar({
   className
 }: VoiceAvatarProps) {
   const avatarUrl = useVoiceAvatar(seed)
+  const displayName = name ?? ""
+  const fallbackName = displayName.trim()
+  const fallbackInitials =
+    fallbackName.length === 0
+      ? "??"
+      : fallbackName.length === 1
+        ? fallbackName.toUpperCase()
+        : fallbackName.slice(0, 2).toUpperCase()
 
   return (
     <Avatar
-      className={cn("size-4 border-white shadow-xs, className")}
+      className={cn("size-4 border-white shadow-xs", className)}
     >
-      <AvatarImage src={avatarUrl} alt={name} />
+      <AvatarImage src={avatarUrl} alt={displayName} />
       <AvatarFallback className="text-[8px]">
-        {name.slice(0,2).toUpperCase()}
+        {fallbackInitials}
         </AvatarFallback>
     </Avatar>
   )
