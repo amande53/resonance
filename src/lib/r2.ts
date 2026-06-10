@@ -1,8 +1,8 @@
 import {
-  S3Client,
-  PutObjectCommand,
-  GetObjectCommand,
   DeleteObjectCommand,
+  GetObjectCommand,
+  PutObjectCommand,
+  S3Client,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { env } from "./env";
@@ -37,7 +37,7 @@ export async function uploadAudio({
   );
 }
 
-export async function deleteAudio(key:string): Promise<void> {
+export async function deleteAudio(key: string): Promise<void> {
   await r2.send(
     new DeleteObjectCommand({
       Bucket: env.R2_BUCKET_NAME,
