@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { ChevronDown } from "lucide-react"
-import {useStore} from "@tanstack/react-form"
+import { useStore } from "@tanstack/react-form"
 
 import { Button } from "@/components/ui/button"
 import { VoiceAvatar } from "@/components/voice-avatar/voice-avatar"

@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
 import {
   BookOpen,
-  Smile,
-  Mic,
-  Languages,
+  Brain,
   Clapperboard,
   Gamepad2,
+  Languages,
+  Mic,
   Podcast,
-  Brain,
-} from "lucide-react"
+  Smile,
+} from "lucide-react";
 
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/components/ui/badge";
 
-import type { LucideIcon } from "lucide-react"
+import type { LucideIcon } from "lucide-react";
 
 const PROMPT_SUGGESTIONS: {
   label: string;
@@ -68,13 +68,9 @@ const PROMPT_SUGGESTIONS: {
       "Close your eyes and take a slow breath in. Hold it gently, like you're holding a tiny glowing star. Now release. Let your shoulders soften. Let your thoughts drift by like pastel clouds. You do not have to solve everything right now. You only have to be here. Breathe in calm. Breathe out the noise.",
     icon: Brain,
   },
-  ];
+];
 
-export function PromptSuggestions({
-    onSelect
-}: {
-    onSelect: (prompt: string) => void
-  }) {
+export function PromptSuggestions({ onSelect }: { onSelect: (prompt: string) => void }) {
   return (
     <div className="space-y-2.5">
       <p className="text-sm text-muted-foreground">Get started with</p>
@@ -84,13 +80,13 @@ export function PromptSuggestions({
             key={suggestion.label}
             variant="outline"
             className="cursor-pointer gap-1.5 py-1 px-2.5 text-xs hover:bg-accent rounded-md"
-           onClick={() => onSelect(suggestion.prompt)} 
+            onClick={() => onSelect(suggestion.prompt)}
           >
             <suggestion.icon className="size-3.5 shrink-0" />
             {suggestion.label}
-           </Badge>
-          ))}
+          </Badge>
+        ))}
       </div>
     </div>
-  )
-  }
+  );
+}

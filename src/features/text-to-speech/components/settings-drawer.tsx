@@ -1,9 +1,11 @@
+"use client"
+
 import { Settings } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 
 import {
-  Drawer, 
+  Drawer,
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
@@ -25,7 +27,7 @@ export function SettingsDrawer({
 }: SettingsDrawerProps) {
 
   return (
-    <Drawer open ={open} onOpenChange={onOpenChange}>
+    <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerTrigger asChild>
         {children ?? (
           <Button variant="outline" size="sm">
@@ -38,10 +40,9 @@ export function SettingsDrawer({
           <DrawerTitle>Settings</DrawerTitle>
         </DrawerHeader>
         <div className="overflow-y-auto">
-          <SettingsPanelSettings/>
+          <SettingsPanelSettings />
         </div>
       </DrawerContent>
-      
     </Drawer>
   );
 }

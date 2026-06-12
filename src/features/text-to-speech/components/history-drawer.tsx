@@ -1,23 +1,25 @@
-import { History } from "lucide-react"
+"use client";
 
-import { Button } from "@/components/ui/button"
+import { History } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 
 import {
-  Drawer, 
+  Drawer,
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer"
+} from "@/components/ui/drawer";
 
-import { SettingsPanelHistory } from "@/features/text-to-speech/components/settings-panel-history"
+import { SettingsPanelHistory } from "@/features/text-to-speech/components/settings-panel-history";
 
 export function HistoryDrawer() {
   return (
     <Drawer>
       <DrawerTrigger asChild>
         <Button variant="outline" size="sm">
-        <History className="size-4" />
+          <History className="size-4" />
         </Button>
       </DrawerTrigger>
       <DrawerContent>
@@ -25,10 +27,9 @@ export function HistoryDrawer() {
           <DrawerTitle>History</DrawerTitle>
         </DrawerHeader>
         <div className="overflow-y-auto">
-          <SettingsPanelHistory/>
+          <SettingsPanelHistory />
         </div>
       </DrawerContent>
-      
     </Drawer>
   );
 }
