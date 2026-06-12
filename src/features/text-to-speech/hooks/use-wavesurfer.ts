@@ -63,7 +63,7 @@ export function useWaveSurfer({ url, autoplay, onReady, onError }: UseWaveSurfer
       setDuration(ws.getDuration());
 
       // Catch NotAllowedError when browser blocks autoplay without user interaction
-      if (autoplay) ws.play().catch(() => {});
+      if (autoplay && !isMobile) ws.play().catch(() => {});
       onReady?.();
     });
 
