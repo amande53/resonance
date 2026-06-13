@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/nextjs"
 import { TEXT_MAX_LENGTH } from "@/features/text-to-speech/data/constants";
 import { chatterbox } from "@/lib/chatterbox-client";
 import { prisma } from "@/lib/db";
@@ -84,6 +85,12 @@ export const generationsRouter = createTRPCRouter({
         parseAs: "arrayBuffer",
       });
 
+      Sentry.logger.info("Generation Started", {
+        orgId: ctx.orgId,
+        voiceId: input.voiceId,
+        textLength: input.text.length,
+      });
+
       if (error) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
@@ -97,6 +104,7 @@ export const generationsRouter = createTRPCRouter({
           message: "Invalid audio response",
         });
       }
+
 
       const buffer = Buffer.from(data);
       let uploadedR2ObjectKey: string | null = null;
