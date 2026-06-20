@@ -22,7 +22,12 @@ interface UseWaveSurferReturn {
   seekBackward: (seconds?: number) => void;
 }
 
-export function useWaveSurfer({ url, autoplay, onReady, onError }: UseWaveSurferOptions) {
+export function useWaveSurfer({
+  url,
+  autoplay,
+  onReady,
+  onError,
+}: UseWaveSurferOptions): UseWaveSurferReturn {
   const containerRef = useRef<HTMLDivElement>(null);
   const wavesurferRef = useRef<WaveSurfer | null>(null);
   const isMobile = useIsMobile();
