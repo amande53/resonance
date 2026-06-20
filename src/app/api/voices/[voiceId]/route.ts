@@ -32,8 +32,16 @@ export async function GET(_request: Request, { params }: { params: Promise<{ voi
     return new Response("Audio is not available yet", { status: 409 });
   }
 
-  const signedUrl = await getSignedAudioUrl(voice.r2ObjectKey);
-  const audioResponse = await fetch(signedUrl);
+  let audioResponse: Response;
+
+  try {
+    const signedUrl = await getSignedAudioUrl(voice.r2ObjectKey);
+    audioResponse = await fetch(signedUrl, {
+      signal: AbortSignal.timeout(15_000),
+    });
+  } catch {
+    return new Response("Failed to fetch audio", { status: 502 });
+  }
 
   if (!audioResponse.ok) {
     return new Response("Failed to fetch audio", { status: 502 });
@@ -41,11 +49,11 @@ export async function GET(_request: Request, { params }: { params: Promise<{ voi
 
   const contentType = audioResponse.headers.get("content-type") || "audio/wav";
 
- return new Response(audioResponse.body, {
-   headers: {
-     "Content-Type": contentType,
-     "Cache-Control":
-       voice.variant === "SYSTEM" ? "public, max-age=86400" : "private, max-age=3600",
-   },
- });
+  return new Response(audioResponse.body, {
+    headers: {
+      "Content-Type": contentType,
+      "Cache-Control":
+        voice.variant === "SYSTEM" ? "public, max-age=86400" : "private, max-age=3600",
+    },
+  });
 }

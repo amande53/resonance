@@ -109,6 +109,7 @@ export function VoiceCard({ voice }: VoiceCardProps) {
           className="rounded-full"
           onClick={togglePlay}
           disabled={isLoading}
+          aria-label={isPlaying ? "Pause voice" : "Play voice"}
         >
           {isLoading ? (
             <Spinner className="size-4" />
@@ -120,7 +121,7 @@ export function VoiceCard({ voice }: VoiceCardProps) {
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon-sm" className="size-4">
+            <Button variant="outline" size="icon-sm" className="size-4" aria-label="Voice options">
               <MoreHorizontal className="size-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -131,13 +132,15 @@ export function VoiceCard({ voice }: VoiceCardProps) {
                 <span className="font-medium">Use this voice</span>
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => setShowDeleteDialog(true)}
-              className="text-destructive focus:text-destructive"
-            >
-              <Trash2 className="size-4 text-destructive" />
-              <span className="font-medium">Delete voice</span>
-            </DropdownMenuItem>
+            {voice.variant === "CUSTOM" && (
+              <DropdownMenuItem
+                onClick={() => setShowDeleteDialog(true)}
+                className="text-destructive focus:text-destructive"
+              >
+                <Trash2 className="size-4 text-destructive" />
+                <span className="font-medium">Delete voice</span>
+              </DropdownMenuItem>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
 

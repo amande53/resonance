@@ -103,16 +103,22 @@ export function useWaveSurfer({
     const ws = wavesurferRef.current;
     if (!ws) return;
 
-    const newTime = Math.min(ws.getCurrentTime() + seconds, ws.getDuration());
-    ws.seekTo(newTime / ws.getDuration());
+    const duration = ws.getDuration();
+    if (!duration) return;
+
+    const newTime = Math.min(ws.getCurrentTime() + seconds, duration);
+    ws.seekTo(newTime / duration);
   }, []);
 
   const seekBackward = useCallback((seconds = 5) => {
     const ws = wavesurferRef.current;
     if (!ws) return;
 
+    const duration = ws.getDuration();
+    if (!duration) return;
+
     const newTime = Math.max(ws.getCurrentTime() - seconds, 0);
-    ws.seekTo(newTime / ws.getDuration());
+    ws.seekTo(newTime / duration);
   }, []);
 
   return {

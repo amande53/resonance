@@ -77,6 +77,7 @@ export function VoiceRecorder({
           variant="ghost"
           size="icon-sm"
           onClick={togglePlay}
+          aria-label={isPlaying ? "Pause recording preview" : "Play recording preview"}
         >
           {isPlaying ? <Pause className="size-4" /> : <Play className="size-4" />}
         </Button>
@@ -86,10 +87,17 @@ export function VoiceRecorder({
           size="icon-sm"
           onClick={handleReRecord}
           title="Re-record"
+          aria-label="Re-record"
         >
           <RotateCcw className="size-4" />
         </Button>
-        <Button type="button" variant="ghost" size="icon-sm" onClick={handleReRecord}>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-sm"
+          onClick={handleReRecord}
+          aria-label="Clear recording"
+        >
           <X className="size-4" />
         </Button>
       </div>
@@ -103,7 +111,12 @@ export function VoiceRecorder({
           <p className="text-[28px] font-semibold leading-[1.2] tracking-tight">
             {formatTime(elapsedTime)}
           </p>
-          <Button type="button" variant="destructive" onClick={handleStop}>
+          <Button
+            type="button"
+            variant="destructive"
+            onClick={handleStop}
+            aria-label="Stop recording"
+          >
             <Square className="size-3" />
           </Button>
         </div>

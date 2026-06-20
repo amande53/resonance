@@ -18,6 +18,8 @@ export function useAudioPlayback(src: string | File | null) {
 
       objectUrlsRef.current.forEach((url) => URL.revokeObjectURL(url));
       objectUrlsRef.current = [];
+      setIsPlaying(false);
+      setIsLoading(false);
     };
   }, [src]);
 

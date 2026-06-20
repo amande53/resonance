@@ -126,6 +126,7 @@ function FileDropzone({
           variant="ghost"
           size="icon-sm"
           onClick={togglePlay}
+          aria-label={isPlaying ? "Pause audio preview" : "Play audio preview"}
         >
           {isPlaying ? (
             <Pause className="size-4" />
@@ -138,6 +139,7 @@ function FileDropzone({
           variant="ghost"
           size="icon-sm"
           onClick={() => onFileChange(null)}
+          aria-label="Remove file"
         >
          <X className="size-4"/>
         </Button>
@@ -235,7 +237,6 @@ function LanguageCombobox({
                   />
                 </CommandItem>
               ))}
-              {}
             </CommandGroup>
           </CommandList>
         </Command>
