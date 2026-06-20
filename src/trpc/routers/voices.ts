@@ -16,7 +16,7 @@ export const voicesRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const searchFilter = input?.query
         ? {
-            or: [
+            OR: [
               {
                 name: {
                   contains: input.query,
