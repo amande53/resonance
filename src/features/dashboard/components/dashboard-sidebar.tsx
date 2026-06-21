@@ -62,6 +62,8 @@ function NavSection({ label, items, pathname }: NavSectionProps) {
                   item.url
                     ? item.url === "/"
                       ? pathname === "/"
+                      : item.url === "/voices"
+                      ? pathname === "/voices"
                       : pathname.startsWith(item.url)
                     : false
                 }
@@ -111,9 +113,9 @@ export function DashboardSidebar() {
       icon: AudioLines,
     },
     {
-      title: "Voice cloning (coming soon)",
+      title: "Voice cloning",
+      url: "/voices/cloning",
       icon: Volume2,
-      disabled: true,
     },
   ];
 
